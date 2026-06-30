@@ -2,32 +2,70 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZeroHost - Escape the Backrooms</title>
     <style>
-        * { margin: 0; padding: 0; box-shadow: none; }
-        body, html { width: 100%; height: 100%; background-color: #000; overflow: hidden; font-family: sans-serif; }
-        #canvas-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        canvas { width: 100%; height: 100%; object-fit: contain; }
-        #boot-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; color: #0f0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
-        .spinner { border: 4px solid rgba(0,255,0,0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #0f0; animation: spin 1s linear infinite; margin-bottom: 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #111;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #boot-screen {
+            text-align: center;
+            z-index: 10;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #status {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #09f;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 起動画面層 -->
+    <!-- 起動・ステータス画面 -->
     <div id="boot-screen">
         <div class="spinner"></div>
-        <div id="status">ZeroHost Initializing...</div>
+        <div id="status">Initializing ZeroHost System...</div>
     </div>
 
-    <!-- ゲーム画面（GPU描画レイヤー） -->
-    <div id="canvas-container">
-        <canvas id="canvas" width="1280" height="720"></canvas>
-    </div>
+    <!-- 仮想OSの描画用キャンバス -->
+    <canvas id="canvas"></canvas>
 
-    <!-- WebVM及び50の最適化スタックを駆動させるコアスクリプトの読み込み -->
+    <!-- コアスクリプトの読み込み -->
     <script src="zerohost_core.js"></script>
 </body>
 </html>
